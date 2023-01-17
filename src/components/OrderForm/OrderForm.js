@@ -13,7 +13,6 @@ class OrderForm extends Component {
 
 
   handleSubmit = e => {
-    e.preventDefault();
     postOrder(this.state.name, this.state.ingredients)
     this.clearInputs();
   }
@@ -59,10 +58,11 @@ class OrderForm extends Component {
         { ingredientButtons }
 
         <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
-        {((this.state.name === '')) && <p>Ingredients and Name are required!</p>}
+        {((this.state.name === '' || (this.state.ingredients.length === 0))) && <p>Ingredients and Name are required!</p>}
+        {((this.state.name.length > 0 && this.state.ingredients.length > 0)) && 
         <button onClick={e => this.handleSubmit(e)}>
           Submit Order
-        </button>
+        </button>}
       </form>
     )
   }

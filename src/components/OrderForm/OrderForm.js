@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { postOrder } from '../../apiCalls';
 
 class OrderForm extends Component {
   constructor(props) {
@@ -13,7 +14,22 @@ class OrderForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    postOrder(this.state.name, this.state.ingredients)
     this.clearInputs();
+  }
+
+  handleIngredientChange = (e) => {
+    e.preventDefault()
+    console.log(e.target.name)
+    this.setState({
+      ingredients: [...this.state.ingredients, e.target.name]
+    })
+  }
+
+  handleNameChange = (e) => {
+    this.setState({
+      [e.target.name]: [e.target.value]
+    })
   }
 
   clearInputs = () => {
@@ -43,7 +59,7 @@ class OrderForm extends Component {
         { ingredientButtons }
 
         <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
-
+        {((this.state.name === '')) && <p>Ingredients and Name are required!</p>}
         <button onClick={e => this.handleSubmit(e)}>
           Submit Order
         </button>

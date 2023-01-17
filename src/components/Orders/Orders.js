@@ -4,11 +4,10 @@ import './Orders.css';
 const Orders = props => {
   const orderEls = props.orders.map((order, index) => {
     return (
-      <div className="order" key={index}>
+      <div className="order" key={index} id={index}>
         <h3>{order.name}</h3>
         <ul className="ingredient-list">
           {order.ingredients.map((ingredient, index) => {
-            console.log(ingredient)
             return <li key={index}>{ingredient}</li>
           })}
         </ul>
